@@ -4,9 +4,16 @@ from flask import Flask
 
 app = Flask(__name__)
 
+from flask import render_template
+
 @app.route('/')
 def index():
-    return 'Hello, World!'
+    return render_template('index.html')
+
+
+# @app.route('/')
+# def index():
+#     return 'Hello, World!'
 
 @app.route('/hello/<name>')
 def sayhello(name):
@@ -18,4 +25,4 @@ def roll_dice():
     x = rand[0].astype(str)
     y = rand[1].astype(str)
     z = rand[2].astype(str)
-    return f'The three random numbers are {x}, {y} and {z}'
+    return render_template('roll-dice.html', x=x, y=y, z=z)
