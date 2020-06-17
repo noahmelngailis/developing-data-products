@@ -1,4 +1,5 @@
 import numpy as np
+import model
 
 from flask import Flask
 
@@ -26,3 +27,35 @@ def roll_dice():
     y = rand[1].astype(str)
     z = rand[2].astype(str)
     return render_template('roll-dice.html', x=x, y=y, z=z)
+
+@app.route('/my-first-form')
+def my_first_form():
+    return render_template('my-first-form.html')
+
+from flask import request
+
+@app.route('/make-greeting', methods=['POST'])
+def handle_form_submission():
+    name = request.form['name']
+    title = request.form['title']
+
+    greeting = 'Hello, '
+
+    if title != '':
+        greeting += title + ' '
+
+    greeting += name + '!'
+
+    return render_template('greeting-result.html', greeting=greeting)
+
+@app.route('/predict')
+def predict_spam():
+    return render_template('predict_spam.html')
+
+@app.route('/predict', methods=['POST'])
+def evaluate_prediction():
+    guess = form.request['guess']
+
+    predict = model.predict(guess)
+
+    return render_template('evaluate_prediction.html', predict=predict)
